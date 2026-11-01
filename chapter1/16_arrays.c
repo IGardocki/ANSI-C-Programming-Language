@@ -67,7 +67,7 @@ int main(void)
   printf("digits\n");
 
   for (i = 0; i < 10; ++i){
-    printf(" %d", ndigit[i]);
+    printf(" %d", i);
     for(int j = 0; j < ndigit[i]; j++){
       printf("X");
     }
