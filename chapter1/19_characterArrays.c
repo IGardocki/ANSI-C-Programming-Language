@@ -186,29 +186,90 @@
 
 // Exercise 1-18. Write a program to remove trailing blanks and tabs from each line of input,
 // and to delete entirely blank lines.
+// #include <stdio.h>
+//
+// #define MAXLINE 1000 /* maximum input line length */
+//
+// int get_line(char s[], int lim);
+// int trim_line(char s[]);
+//
+// int main(void)
+// {
+//     char line[MAXLINE];
+//     int len;
+//
+//     while ((len = get_line(line, MAXLINE)) > 0) {
+//         if (trim_line(line) > 0) {
+//             printf("%s\n", line);
+//         }
+//     }
+//
+//     return 0;
+// }
+//
+// int get_line(char s[], int lim)
+// {
+//     int c;
+//     int i;
+//
+//     for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
+//         s[i] = (char)c;
+//     }
+//
+//     if (c == '\n') {
+//         s[i] = (char)c;
+//         ++i;
+//     }
+//
+//     s[i] = '\0';
+//     return i;
+// }
+//
+// int trim_line(char s[])
+// {
+//     int i = 0;
+//
+//     while (s[i] != '\0') {
+//         ++i;
+//     }
+//     --i;
+//
+//     while (i >= 0 && (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == '\r')) {
+//         --i;
+//     }
+//
+//     if (i >= 0) {
+//         ++i;
+//         s[i] = '\0';
+//     } else {
+//         s[0] = '\0';
+//         return 0;
+//     }
+//     return i;
+// }
+//
+
+// Exercise 1-19. Write a function reverse(s) that reverses the character string s. 
+// Use it to write a program that reverses its input a line at a time.
 #include <stdio.h>
 
-#define MAXLINE 1000 /* maximum input line length */
+#define MAXLINE 1000
 
 int get_line(char s[], int lim);
-int trim_line(char s[]);
+void reverse(char s[]);
 
-int main(void)
-{
+int main(void) {
     char line[MAXLINE];
-    int len;
 
-    while ((len = get_line(line, MAXLINE)) > 0) {
-        if (trim_line(line) > 0) {
-            printf("%s\n", line);
-        }
+    while (get_line(line, MAXLINE) > 0) {
+        reverse(line);
+        printf("%s", line);
     }
 
     return 0;
 }
 
-int get_line(char s[], int lim)
-{
+int get_line(char s[], int lim) {
     int c;
     int i;
 
@@ -225,27 +286,26 @@ int get_line(char s[], int lim)
     return i;
 }
 
-int trim_line(char s[])
-{
+void reverse(char s[]) {
     int i = 0;
+    int j = 0;
+    char temp;
 
-    while (s[i] != '\0') {
+    while (s[j] != '\0') {
+        ++j;
+    }
+
+    --j;
+
+    if (j >= 0 && s[j] == '\n') {
+        --j;
+    }
+
+    while (i < j) {
+        temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
         ++i;
+        --j;
     }
-    --i;
-
-    while (i >= 0 && (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == '\r')) {
-        --i;
-    }
-
-    if (i >= 0) {
-        ++i;
-        s[i] = '\0';
-    } else {
-        s[0] = '\0';
-        return 0;
-    }
-    return i;
 }
-
-
