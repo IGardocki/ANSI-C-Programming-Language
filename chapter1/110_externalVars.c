@@ -62,7 +62,7 @@
 // say every n columns. Should n be a variable or a symbolic parameter?
 // #include <stdio.h>
 //
-// #define TABSTOP 8
+// #define TABSTOP 6
 //
 // int main(void) {
 //     int c;
@@ -87,3 +87,39 @@
 //
 //     return 0;
 // }
+
+// Exercise 1-21. Write a program entab that replaces strings of blanks by the minimum 
+// number of tabs and blanks to achieve the same spacing. Use the same tab stops as for detab.
+// When either a tab or a single blank would suffice to reach a tab stop, 
+// which should be given preference?
+#include <stdio.h>
+
+#define TABSTOP 2
+
+int main(void) {
+    int c;
+    int col = 0;
+    int spaces = 0;
+
+    while ((c = getchar()) != EOF) {
+        if (c == ' ') {
+            spaces++;
+            col++;
+            if (spaces == TABSTOP) {
+                putchar('\t');
+                spaces = 0;
+            }
+        } else if (c == '\n') {
+            putchar(c);
+            col = 0;
+        } else {
+            putchar(c);
+            ++col;
+        }
+        
+    }
+
+    return 0;
+}
+
+ 
